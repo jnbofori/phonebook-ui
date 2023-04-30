@@ -1,4 +1,4 @@
-# syncline-vue
+# phone book
 
 ## Project setup
 ```
