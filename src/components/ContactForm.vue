@@ -32,27 +32,39 @@
               phoneNumber: ''
           }
       },
-      mounted() {
-        console.log(this.contactData)
-        if(this.contactData) {
-          console.log({cont: this.contactData})
-          this.firstName = this.contactData.firstName;
-          this.lastName = this.contactData.lastName;
-          this.phoneNumber = this.contactData.phoneNumber
-        }
+      watch: {
+        contactData: {
+          handler(value){
+            if (value){
+              this.firstName = value.firstName;
+              this.lastName = value.lastName;
+              this.phoneNumber = value.phoneNumber
+            }
+          },
+          deep: true,
+          immediate: true
+        },
       },
       methods: {
-          async addIssue() {
-            if (!this.contactData) {
-              axios.post('contacts', {
-                  firstName: this.firstName,
-                  lastName: this.lastName,
-                  phoneNumber: this.phoneNumber
-              }).then(() => {
-                  this.$router.push('/')
-              });
-            }
+        async addIssue() {
+          if (!this.contactData) {
+            axios.post('contacts', {
+                firstName: this.firstName,
+                lastName: this.lastName,
+                phoneNumber: this.phoneNumber
+            }).then(() => {
+                this.$router.push('/')
+            });
+          } else {
+            axios.put(`contacts/${this.contactData._id}`, {
+                firstName: this.firstName,
+                lastName: this.lastName,
+                phoneNumber: this.phoneNumber
+            }).then(() => {
+                this.$router.push('/')
+            });
           }
+        }
       }
   }
 </script>

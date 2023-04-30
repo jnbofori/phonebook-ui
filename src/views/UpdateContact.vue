@@ -1,6 +1,6 @@
 <template>
   <div class="about">
-    <ContactForm :contactData="contactData" />
+    <ContactForm :contactData="contact" />
   </div>
 </template>
 
@@ -12,15 +12,15 @@
     name: 'Update-Contact',
     components: {ContactForm},
     data() {
-          return {
-            contactData: {}
-          }
+        return {
+          contact: {}
+        }
       },
-    async mounted() {
+    async created() {
       const contactId = this.$route.params.contactId;
-      const response = await axios.get(`contacts/${contactId}`);
-      this.contactData = response.data;
-      console.log(this.contactData)
+      axios.get(`contacts/${contactId}`).then((response) => {
+        this.contact = response.data;
+      });
     },
   }
 </script>

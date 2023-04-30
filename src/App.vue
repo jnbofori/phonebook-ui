@@ -1,9 +1,9 @@
 <template>
   <div id="app">
-    <Header :user="user" v-on:checkUser="checkUser"/>
+    <Header :user="user" />
     <div class="auth-wrapper">
       <div class="auth-inner">
-        <router-view v-on:checkUser="checkUser"/>
+        <router-view />
       </div>
     </div>
   </div>
